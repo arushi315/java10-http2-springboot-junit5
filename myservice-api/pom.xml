@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>myservice</artifactId>
+        <groupId>com.nischit.sample</groupId>
+        <version>1.0.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>myservice-api</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.nischit.sample</groupId>
+            <artifactId>myservice-api-support</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.nischit.sample</groupId>
+            <artifactId>myservice-domain</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.nischit.sample</groupId>
+            <artifactId>myservice-persistence</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.nischit.sample</groupId>
+            <artifactId>myservice-localization</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jetty</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-alpn-conscrypt-server</artifactId>
+            <version>${jetty.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty.http2</groupId>
+            <artifactId>http2-server</artifactId>
+            <version>${jetty.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-hateoas</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <layout>ZIP</layout>
+                    <mainClass>com.nischit.sample.myservice.ApiApplication</mainClass>
+                    <finalName>${project.name}-${project.version}</finalName>
+                    <folders>
+                        <folder>${project.build.directory}/test-classes/</folder>
+                    </folders>
+                    <arguments>
+                        <argument>--spring.config.location=classpath:myservice-api-test.properties</argument>
+                        <argument>--banner.location=classpath:banner-test.txt</argument>
+                        <argument>--logging.config=classpath:logback-test.xml</argument>
+                    </arguments>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+                <executions>
+                    <execution>
+                        <id>jacoco-unit-test-aggregate</id>
+                        <phase>package</phase>
+                        <configuration>
+                            <destFile>${jacoco.overall.ut.exec.path}</destFile>
+                            <fileSets>
+                                <fileSet>
+                                    <directory>${basedir}/../myservice-api-support/target/site/jacoco</directory>
+                                    <includes>
+                                        <include>jacoco-ut.exec</include>
+                                    </includes>
+                                </fileSet>
+                                <fileSet>
+                                    <directory>${basedir}/../myservice-localization/target/site/jacoco</directory>
+                                    <includes>
+                                        <include>jacoco-ut.exec</include>
+                                    </includes>
+                                </fileSet>
+                                <fileSet>
+                                    <directory>${basedir}/../myservice-util/target/site/jacoco</directory>
+                                    <includes>
+                                        <include>jacoco-ut.exec</include>
+                                    </includes>
+                                </fileSet>
+                                <fileSet>
+                                    <directory>${basedir}/../myservice-domain/target/site/jacoco</directory>
+                                    <includes>
+                                        <include>jacoco-ut.exec</include>
+                                    </includes>
+                                </fileSet>
+                                <fileSet>
+                                    <directory>${basedir}/../myservice-persistence/target/site/jacoco</directory>
+                                    <includes>
+                                        <include>jacoco-ut.exec</include>
+                                    </includes>
+                                </fileSet>
+                                <fileSet>
+                                    <directory>${basedir}/../myservice-api/target/site/jacoco</directory>
+                                    <includes>
+                                        <include>jacoco-ut.exec</include>
+                                    </includes>
+                                </fileSet>
+                            </fileSets>
+                        </configuration>
+                        <goals>
+                            <goal>merge</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>jacoco-int-test-aggregate</id>
+                        <phase>verify</phase>
+                        <configuration>
+                            <destFile>${jacoco.overall.it.exec.path}</destFile>
+                            <fileSets>
+                                <fileSet>
+                                    <directory>${basedir}/../myservice-api-support/target/site/jacoco</directory>
+                                    <includes>
+                                        <include>jacoco-it.exec</include>
+                                    </includes>
+                                </fileSet>
+                                <fileSet>
+                                    <directory>${basedir}/../myservice-localization/target/site/jacoco</directory>
+                                    <includes>
+                                        <include>jacoco-it.exec</include>
+                                    </includes>
+                                </fileSet>
+                                <fileSet>
+                                    <directory>${basedir}/../myservice-util/target/site/jacoco</directory>
+                                    <includes>
+                                        <include>jacoco-it.exec</include>
+                                    </includes>
+                                </fileSet>
+                                <fileSet>
+                                    <directory>${basedir}/../myservice-domain/target/site/jacoco</directory>
+                                    <includes>
+                                        <include>jacoco-it.exec</include>
+                                    </includes>
+                                </fileSet>
+                                <fileSet>
+                                    <directory>${basedir}/../myservice-persistence/target/site/jacoco</directory>
+                                    <includes>
+                                        <include>jacoco-it.exec</include>
+                                    </includes>
+                                </fileSet>
+                                <fileSet>
+                                    <directory>${basedir}/../myservice-api/target/site/jacoco</directory>
+                                    <includes>
+                                        <include>jacoco-it.exec</include>
+                                    </includes>
+                                </fileSet>
+                            </fileSets>
+                        </configuration>
+                        <goals>
+                            <goal>merge</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>generate-ut-coverage-report</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <failOnError>false</failOnError>
+                            <target name="ut-test-report">
+                                <!-- This is a process of generating multi-module combined jacoco html report. I wish there is a better technique than below in maven -->
+                                <echo message="Generating JaCoCo UT Reports"/>
+                                <taskdef name="report" classname="org.jacoco.ant.ReportTask">
+                                    <classpath path="${basedir}/target/jacoco-jars/*.jar"/>
+                                </taskdef>
+                                <mkdir dir="${project.build.directory}/site/jacoco/jacoco-overall-ut/"/>
+                                <report>
+                                    <executiondata>
+                                        <fileset dir="${project.build.directory}/site/jacoco">
+                                            <include name="jacoco-overall-ut.exec"/>
+                                        </fileset>
+                                    </executiondata>
+                                    <structure name="${project.parent.artifactId}-ut-test-report">
+                                        <classfiles>
+                                            <fileset dir="${basedir}/../myservice-api-support/target/classes"/>
+                                            <fileset dir="${basedir}/../myservice-localization/target/classes"/>
+                                            <fileset dir="${basedir}/../myservice-util/target/classes"/>
+                                            <fileset dir="${basedir}/../myservice-domain/target/classes"/>
+                                            <fileset dir="${basedir}/../myservice-persistence/target/classes"/>
+                                            <fileset dir="${basedir}/../myservice-api/target/classes"/>
+                                        </classfiles>
+                                        <sourcefiles encoding="UTF-8">
+                                            <fileset dir="${basedir}/../myservice-api-support/src/main/java"/>
+                                            <fileset dir="${basedir}/../myservice-localization/src/main/java"/>
+                                            <fileset dir="${basedir}/../myservice-util/src/main/java"/>
+                                            <fileset dir="${basedir}/../myservice-domain/src/main/java"/>
+                                            <fileset dir="${basedir}/../myservice-persistence/src/main/java"/>
+                                            <fileset dir="${basedir}/../myservice-api/src/main/java"/>
+                                        </sourcefiles>
+                                    </structure>
+                                    <html destdir="${project.build.directory}/site/jacoco/jacoco-overall-ut"/>
+                                </report>
+                            </target>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generate-it-coverage-report</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <failOnError>false</failOnError>
+                            <target name="it-test-report">
+                                <!-- Execute an ant task within maven -->
+                                <echo message="Generating JaCoCo IT Reports"/>
+                                <taskdef name="report" classname="org.jacoco.ant.ReportTask">
+                                    <classpath path="${basedir}/target/jacoco-jars/*.jar"/>
+                                </taskdef>
+                                <mkdir dir="${project.build.directory}/site/jacoco/jacoco-overall-it/"/>
+                                <report>
+                                    <executiondata>
+                                        <fileset dir="${project.build.directory}/site/jacoco">
+                                            <include name="jacoco-overall-it.exec"/>
+                                        </fileset>
+                                    </executiondata>
+                                    <structure name="${project.parent.artifactId}-it-test-report">
+                                        <classfiles>
+                                            <fileset dir="${basedir}/../myservice-api-support/target/classes"/>
+                                            <fileset dir="${basedir}/../myservice-localization/target/classes"/>
+                                            <fileset dir="${basedir}/../myservice-util/target/classes"/>
+                                            <fileset dir="${basedir}/../myservice-domain/target/classes"/>
+                                            <fileset dir="${basedir}/../myservice-persistence/target/classes"/>
+                                            <fileset dir="${basedir}/../myservice-api/target/classes"/>
+                                        </classfiles>
+                                        <sourcefiles encoding="UTF-8">
+                                            <fileset dir="${basedir}/../myservice-api-support/src/main/java"/>
+                                            <fileset dir="${basedir}/../myservice-localization/src/main/java"/>
+                                            <fileset dir="${basedir}/../myservice-util/src/main/java"/>
+                                            <fileset dir="${basedir}/../myservice-domain/src/main/java"/>
+                                            <fileset dir="${basedir}/../myservice-persistence/src/main/java"/>
+                                            <fileset dir="${basedir}/../myservice-api/src/main/java"/>
+                                        </sourcefiles>
+                                    </structure>
+                                    <html destdir="${project.build.directory}/site/jacoco/jacoco-overall-it"/>
+                                </report>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>org.jacoco.ant</artifactId>
+                        <version>${jacoco.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
