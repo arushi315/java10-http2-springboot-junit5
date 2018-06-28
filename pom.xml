@@ -9,17 +9,17 @@
     <packaging>pom</packaging>
     <version>1.0.0</version>
     <modules>
-        <module>myservice-api</module>
-        <module>myservice-api-support</module>
-        <module>myservice-domain</module>
-        <module>myservice-persistence</module>
-        <module>myservice-localization</module>
-        <module>myservice-util</module>
+        <module>api</module>
+        <module>support</module>
+        <module>domain</module>
+        <module>persistence</module>
+        <module>localization</module>
+        <module>util</module>
     </modules>
 
     <properties>
-        <spring.boot.version>2.0.2.RELEASE</spring.boot.version>
-        <spring.version>5.0.6.RELEASE</spring.version>
+        <spring.boot.version>2.0.3.RELEASE</spring.boot.version>
+        <spring.version>5.0.7.RELEASE</spring.version>
         <guava.version>25.0-jre</guava.version>
         <com.fasterxml.jackson.version>2.9.5</com.fasterxml.jackson.version>
         <asm.version>6.1.1</asm.version>
@@ -83,6 +83,11 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-jetty</artifactId>
+                <version>${spring.boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-autoconfigure</artifactId>
                 <version>${spring.boot.version}</version>
             </dependency>
             <dependency>
