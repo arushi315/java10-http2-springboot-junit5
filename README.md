@@ -67,3 +67,15 @@ However one can use spring rest template along with "OK http3" to achieve the ob
 In this example, I am running both unit and integration tests in one go. That is, if you run "mvn clean install", it will do all of them.
 In my real word project, I moved the execution of integration tests as seperate maven profile. I guess thats an option you can consider.
 
+# How to build and where the coverage reports located?
+
+    To run all unit and integration tests, simple run "mvn clean install"
+    To skip integration tests, simple run "mvn clean install -Dskip.integration.tests=true"
+    
+
+    Jacoco Coverage
+        Unit tests - Each module has unit test HTML report at target/site/jacoco/jacoco-ut
+        Overall unit tests - Aggregatd unit test report is located at api/target/site/jacoco/jacoco-overall-ut
+
+        Integration tests - Each module has unit test HTML report at target/site/jacoco/jacoco-it
+        Overall integration tests - Aggregatd integration test report is located at api/target/site/jacoco/jacoco-overall-it
