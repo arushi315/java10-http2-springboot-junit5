@@ -48,6 +48,8 @@ This project attempts to build individual and combined (aggregate) jacoco code c
 
 ## 7. Rest API exception handling
 
+With Spring boot, life is made easy with good exception handling. In this project, you can see the usage of @RestControllerAdvice to handle all application and non-application level exceptions. 
+
 # Some key observations while working on this assignment
 
 1. There is a reason, I have used specific version of surefire, failsafe plugins. 
